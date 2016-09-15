@@ -118,7 +118,7 @@ class Unzipper {
   public static function extractZipArchive($archive, $destination) {
     // Check if webserver supports unzipping.
     if (!class_exists('ZipArchive')) {
-      $GLOBALS['status'] = array('error' => 'Error: Your PHP version does not support unzip functionality.');
+      $GLOBALS['status'] = array('error' => 'Error: Ihre PHP-Version unterstützt die Fähigkeit zum entpacken von Archiven nicht.');
       return;
     }
 
@@ -130,14 +130,14 @@ class Unzipper {
       if (is_writeable($destination . '/')) {
         $zip->extractTo($destination);
         $zip->close();
-        $GLOBALS['status'] = array('success' => 'Files unzipped successfully');
+        $GLOBALS['status'] = array('success' => 'Dateien erfolgreich entpackt.');
       }
       else {
-        $GLOBALS['status'] = array('error' => 'Error: Directory not writeable by webserver.');
+        $GLOBALS['status'] = array('error' => 'Error: Verzeichnis vom Webserver nicht beschreibbar.');
       }
     }
     else {
-      $GLOBALS['status'] = array('error' => 'Error: Cannot read .zip archive.');
+      $GLOBALS['status'] = array('error' => 'Error: Das .zip-Archiv ist nicht lesbar.');
     }
   }
 
@@ -150,7 +150,7 @@ class Unzipper {
   public static function extractGzipFile($archive, $destination) {
     // Check if zlib is enabled
     if (!function_exists('gzopen')) {
-      $GLOBALS['status'] = array('error' => 'Error: Your PHP has no zlib support enabled.');
+      $GLOBALS['status'] = array('error' => 'Error: Ihr PHP hat keine zlib-Unterstützung aktiviert!');
       return;
     }
 
@@ -183,7 +183,7 @@ class Unzipper {
   public static function extractRarArchive($archive, $destination) {
     // Check if webserver supports unzipping.
     if (!class_exists('RarArchive')) {
-      $GLOBALS['status'] = array('error' => 'Error: Your PHP version does not support .rar archive functionality. <a class="info" href="http://php.net/manual/en/rar.installation.php" target="_blank">How to install RarArchive</a>');
+      $GLOBALS['status'] = array('error' => 'Error: Ihre PHP-Version unterstützt keine .rar-Funktionalitäten <a class="info" href="http://php.net/manual/en/rar.installation.php" target="_blank">How to install RarArchive</a>');
       return;
     }
     // Check if archive is readable.
@@ -195,14 +195,14 @@ class Unzipper {
           $entry->extract($destination);
         }
         $rar->close();
-        $GLOBALS['status'] = array('success' => 'Files extracted successfully.');
+        $GLOBALS['status'] = array('success' => 'Dateien erfolgreich extrahiert.');
       }
       else {
-        $GLOBALS['status'] = array('error' => 'Error: Directory not writeable by webserver.');
+        $GLOBALS['status'] = array('error' => 'Error: Verzeichnis vom Webserver nicht beschreibbar.');
       }
     }
     else {
-      $GLOBALS['status'] = array('error' => 'Error: Cannot read .rar archive.');
+      $GLOBALS['status'] = array('error' => 'Error: Das .rar-Archiv kann nicht gelesen werden!');
     }
   }
 
@@ -283,7 +283,7 @@ class Zipper {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
   <title>File Unzipper + Zipper</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
