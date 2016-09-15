@@ -41,4 +41,4 @@ Get latest code at https://github.com/ndeet/unzipper
 
 
 ## Credits   
-[See contributors on Github](https://github.com/ndeet/unzipper/graphs/contributors)  
+[See contributors on Github](https://github.com/Keinbockwurst/styled-unzipper/graphs/contributors)  
