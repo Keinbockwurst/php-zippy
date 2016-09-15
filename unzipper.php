@@ -8,9 +8,9 @@
  * @author  Andreas Tasch, at[tec], attec.at; translation to german by Stefan Boguth, boguth.org
  * @license GNU GPL v3
  * @package attec.toolbox
- * @version 0.1.0
+ * @version 0.1.1
  */
-define('VERSION', '0.1.0');
+define('VERSION', '0.1.1');
 $timestart = microtime(TRUE);
 $GLOBALS['status'] = array();
 $unzipper = new Unzipper;
