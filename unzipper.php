@@ -55,10 +55,10 @@ class Unzipper {
       closedir($dh);
 
       if (!empty($this->zipfiles)) {
-        $GLOBALS['status'] = array('info' => '.zip or .gz or .rar files found, ready for extraction');
+        $GLOBALS['status'] = array('info' => '.zip oder .gz oder .rar Dateien gefunden, bereit zum entpacken!');
       }
       else {
-        $GLOBALS['status'] = array('info' => 'No .zip or .gz or rar files found. So only zipping functionality available.');
+        $GLOBALS['status'] = array('info' => 'Keine .zip oder .gz oder .rar Dateien gefunden. Deshalb nur die Zipping-Funktionalität verfügbar.');
       }
     }
   }
@@ -166,10 +166,10 @@ class Unzipper {
 
     // Check if file was extracted.
     if (file_exists($destination . '/' . $filename)) {
-      $GLOBALS['status'] = array('success' => 'File unzipped successfully.');
+      $GLOBALS['status'] = array('success' => 'Datei erfolgreich entpackt.');
     }
     else {
-      $GLOBALS['status'] = array('error' => 'Error unzipping file.');
+      $GLOBALS['status'] = array('error' => 'Fehler beim entpacken der Datei.');
     }
 
   }
@@ -277,7 +277,7 @@ class Zipper {
     }
     $z->close();
 
-    $GLOBALS['status'] = array('success' => 'Successfully created archive ' . $outZipPath);
+    $GLOBALS['status'] = array('success' => 'Archiv erfolgreich erstellt' . $outZipPath);
   }
 }
 ?>
@@ -385,7 +385,7 @@ class Zipper {
       }
       ?>
     </select>
-    <label for="extpath">Pfad zum Entpacken (Optional):</label>
+    <label for="extpath">Pfad in den entpackt werden soll (Optional):</label>
     <input type="text" name="extpath" class="form-field" />
     <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad"). Wenn das Feld leergelassen wird dann wird das Archiv im selben Pfad entpackt.</p>
     <input type="submit" name="dounzip" class="submit" value="Entpacken"/>
