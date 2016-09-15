@@ -5,7 +5,7 @@
  * of files (php framework or image collection) as an archive to save time.
  * As of version 0.1.0 it also supports creating archives.
  *
- * @author  Andreas Tasch, at[tec], attec.at
+ * @author  Andreas Tasch, at[tec], attec.at; translation to german by Stefan Boguth, boguth.org
  * @license GNU GPL v3
  * @package attec.toolbox
  * @version 0.1.0
@@ -373,32 +373,32 @@ class Zipper {
 <body>
 <p class="status status--<?php echo strtoupper(key($GLOBALS['status'])); ?>">
   Status: <?php echo reset($GLOBALS['status']); ?><br/>
-  <span class="small">Processing Time: <?php echo $time; ?> seconds</span>
+  <span class="small">Benötigte Zeit: <?php echo $time; ?> Sekunden</span>
 </p>
 <form action="" method="POST">
   <fieldset>
-    <h1>Archive Unzipper</h1>
-    <label for="zipfile">Select .zip or .rar archive or .gz file you want to extract:</label>
+    <h1>Archiv Unzipper</h1>
+    <label for="zipfile">Wählen Sie ein .rar, .zip oder .gz-Archiv das sie entpacken wollen:</label>
     <select name="zipfile" size="1" class="select">
       <?php foreach ($unzipper->zipfiles as $zip) {
         echo "<option>$zip</option>";
       }
       ?>
     </select>
-    <label for="extpath">Extraction path (optional):</label>
+    <label for="extpath">Pfad zum Entpacken (Optional):</label>
     <input type="text" name="extpath" class="form-field" />
-    <p class="info">Enter extraction path without leading or trailing slashes (e.g. "mypath"). If left empty current directory will be used.</p>
-    <input type="submit" name="dounzip" class="submit" value="Unzip Archive"/>
+    <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad"). Wenn das Feld leergelassen wird dann wird das Archiv im selben Pfad entpackt.</p>
+    <input type="submit" name="dounzip" class="submit" value="Entpacken"/>
   </fieldset>
 
   <fieldset>
-    <h1>Archive Zipper</h1>
-    <label for="zippath">Path that should be zipped (optional):</label>
+    <h1>Archiv Zipper</h1>
+    <label for="zippath">Pfad den Sie zippen wollen (Optional):</label>
     <input type="text" name="zippath" class="form-field" />
-    <p class="info">Enter path to be zipped without leading or trailing slashes (e.g. "zippath"). If left empty current directory will be used.</p>
-    <input type="submit" name="dozip" class="submit" value="Zip Archive"/>
+    <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad"). Wenn das Feld leergelassen wird dann wird der aktuelle Pfad verwendet</p>
+    <input type="submit" name="dozip" class="submit" value="Packen"/>
   </fieldset>
 </form>
-<p class="version">Unzipper version: <?php echo VERSION; ?></p>
+<p class="version">Unzipper Version: <?php echo VERSION; ?></p>
 </body>
 </html>
