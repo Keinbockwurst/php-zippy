@@ -29,7 +29,7 @@ Das Tool befindet sich noch in der Entwicklung, Nutzung auf eigene Gefahr!
 
 
 ## Lizenz
-Veröffentlicht GNU/GPL v3
+Veröffentlicht unter GNU/GPL v3
 
 
 ## Screenshot   
