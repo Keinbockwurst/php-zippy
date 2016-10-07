@@ -6,14 +6,14 @@ As of version 0.1.0 it also supports creating archives.
 It's handy if you do not have shell access. E.g. if you want to upload a lot of files (php framework or image collection) as archive - because it is much faster than uploading each file by itself.
 
 
-## Requirements    
-PHP 5.3 and newer
-(If you still run PHP < 5.6 you should consider updating PHP. These old PHP versions do not get any security updates and your site may be vulnerable.)
+## Vorraussetzungen    
+PHP 5.3 oder höher
 
 
-## Usage
-* Download unzipper.php and place it in the same directory as your .zip archive.
-* In Browser type URL to unzipper.php
+
+## Benutzung
+* Das Unzipper-Archiv herunterladen und auf dem Webspace ablegen. Zu enpackende Archive im selben Pfad platzieren.
+* Im Browser die URL des Unzippers aufrufen.
 
 ### Archive unzipper
 * Choose .zip, .rar archive or .gz file you want to extract
@@ -25,11 +25,11 @@ PHP 5.3 and newer
 * Click "Zip Archive"
 
 ## Version
-Beta version state, use at you own risk.
+Das Tool befindet sich noch in der Entwicklung, Nutzung auf eigene Gefahr!
 
 
-## License
-Released under GNU/GPL v3
+## Lizenz
+Veröffentlicht GNU/GPL v3
 
 
 ## Screenshot   
@@ -37,7 +37,7 @@ Released under GNU/GPL v3
 
 
 ## Updates    
-Get latest code at https://github.com/ndeet/unzipper
+Get latest code at https://github.com/keinbockwurst/styled-unzipper
 
 
 ## Credits   
