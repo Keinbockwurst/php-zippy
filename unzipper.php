@@ -5,7 +5,7 @@
  * of files (php framework or image collection) as an archive to save time.
  * As of version 0.1.0 it also supports creating archives.
  *
- * @author  Andreas Tasch, at[tec], attec.at; translation to german by Stefan Boguth, boguth.org
+ * @author  Andreas Tasch, at[tec], attec.at; Stefan Boguth, Boguth.org
  * @license GNU GPL v3
  * @package attec.toolbox
  * @version 0.1.1
@@ -28,6 +28,7 @@ if (isset($_POST['dozip'])) {
 }
 $timeend = microtime(TRUE);
 $time = $timeend - $timestart;
+$timestring = (string)$time;
 /**
  * Class Unzipper
  */
@@ -47,10 +48,10 @@ class Unzipper {
       }
       closedir($dh);
       if (!empty($this->zipfiles)) {
-        $GLOBALS['status'] = array('info' => '.zip or .gz or .rar files found, ready for extraction');
+        $GLOBALS['status'] = array('info' => '.zip, .gz oder .rar Dateien gefunden, bereit zum entpacken.');
       }
       else {
-        $GLOBALS['status'] = array('info' => 'No .zip or .gz or rar files found. So only zipping functionality available.');
+        $GLOBALS['status'] = array('info' => 'Keine .zip oder .gz oder rar Dateien gefunden. Nur Funktionen zum Packen von Archiven möglich.');
       }
     }
   }
@@ -261,6 +262,7 @@ class Zipper {
   <title>File Unzipper + Zipper</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="animate.css">
   <style type="text/css">
     <!--
     body {
@@ -351,11 +353,11 @@ class Zipper {
   </style>
 </head>
 <body>
-  <div class="wrapper">
+  <div class="animated zoomIn wrapper">
     <div class="innerwrapper">
       <p class="status status--<?php echo strtoupper(key($GLOBALS['status'])); ?>">
         Status: <?php echo reset($GLOBALS['status']); ?><br/>
-        <span class="small">Benötigte Zeit: <?php echo $time; ?> Sekunden</span>
+        <span class="small">Zur Scriptausführung benötigte Zeit: <?php echo substr($timestring,0,4); ?> Sekunden</span>
       </p>
       <form action="" method="POST">
         <fieldset>
