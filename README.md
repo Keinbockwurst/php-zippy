@@ -1,9 +1,9 @@
-# The Unzipper
+# Zippy
 
-The Unzipper extracts .zip and .rar archives or .gz files on webservers. It detects .zip/.rar/.gz archives and let you choose which one to extract (if there are multiple archives available).
-As of version 0.1.0 it also supports creating archives.
+Tool zum entpacken von Archiven, nützlich wenn kein Shell-Zugang zum Webspace vorhanden ist.
 
-It's handy if you do not have shell access. E.g. if you want to upload a lot of files (php framework or image collection) as archive - because it is much faster than uploading each file by itself.
+-> Neu in Version 0.1.0: Pfade des Webspace Packen
+-> Neu in Version 0.1.4: Upload von .rar, .zip und .gz-Archiven
 
 
 ## Vorraussetzungen    
@@ -16,13 +16,13 @@ PHP 5.3 oder höher
 * Im Browser die URL des Unzippers aufrufen.
 
 ### Archive unzipper
-* Choose .zip, .rar archive or .gz file you want to extract
-* (Optional) select an extraction path, defaults to current directory
-* Click "Unzip Archive"
+* Zu entpackendes Archiv auswählen
+* (Optional) Pfad zum entpacken auswählen, default ist das Startverzeichnis von Zippy
+* Entpacken anklicken
 
 ### Archive zipper
-* (Optional) Set path to zip, defaults to current directory
-* Click "Zip Archive"
+* (Optional) Pfad zum Speichern festlegen
+* Packen klicken
 
 ### Archiv Uploader
 * Upload von .rar, .zip und .gz-Archiven in den Ordner Upload
