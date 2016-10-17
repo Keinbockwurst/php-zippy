@@ -26,11 +26,11 @@ if (isset($_POST['dozip'])) {
   Zipper::zipDir($zippath, $zipfile);
 }
 if (isset($_POST['upload'])) {
-    $filename = "upload/";
+    $directory = "upload/";
 
     //checking if dir upload exists, if not create it.
-    if (!file_exists($filename)) {
-        mkdir($filename, 0755);
+    if (!file_exists($directory)) {
+        mkdir($directory, 0755);
     }
     //moving the uploaded files to the upload-dir
     $upload_folder = 'upload/'; //Das Upload-Verzeichnis
@@ -293,9 +293,6 @@ class Zipper {
     $GLOBALS['status'] = array('success' => 'Archiv erfolgreich erstellt: ' . $outZipPath);
   }
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
