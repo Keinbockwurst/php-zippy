@@ -306,6 +306,8 @@ class Zipper {
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
   <link rel="stylesheet" href="resources/animate.css">
   <link rel="stylesheet" href="resources/style.css">
+  <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div class="animated zoomIn wrapper">
@@ -314,6 +316,7 @@ class Zipper {
         Status: <?php echo reset($GLOBALS['status']); ?><br/>
         <span class="small">Zur Scriptausführung benötigte Zeit: <?php echo substr($timestring,0,4); ?> Sekunden</span>
       </p>
+
       <form action="" method="POST">
         <fieldset>
           <h1>Archiv Unzipper</h1>
