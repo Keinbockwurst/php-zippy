@@ -40,8 +40,8 @@ Veröffentlicht unter GNU/GPL v3
 
 
 ## Updates    
-Get latest code at https://github.com/keinbockwurst/styled-unzipper
+Get latest code at https://github.com/keinbockwurst/php-zippy
 
 
 ## Credits   
-[See contributors on Github](https://github.com/Keinbockwurst/styled-unzipper/graphs/contributors)  
+[See contributors on Github](https://github.com/Keinbockwurst/php-zippy/graphs/contributors)  
