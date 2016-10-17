@@ -24,6 +24,9 @@ PHP 5.3 oder höher
 * (Optional) Set path to zip, defaults to current directory
 * Click "Zip Archive"
 
+### Archiv Uploader
+* Upload von .rar, .zip und .gz-Archiven in den Ordner Upload
+
 ## Version
 Das Tool befindet sich noch in der Entwicklung, Nutzung auf eigene Gefahr!
 
