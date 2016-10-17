@@ -301,7 +301,7 @@ class Zipper {
 <!DOCTYPE html>
 <html>
 <head>
-  <title>File Unzipper + Zipper</title>
+  <title>Zippy</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
   <link rel="stylesheet" href="resources/animate.css">
