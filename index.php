@@ -28,42 +28,48 @@ if (isset($_POST['dozip'])) {
 if (isset($_POST['upload'])) {
     $directory = "upload/";
 
-    //checking if dir upload exists, if not create it.
-    if (!file_exists($directory)) {
-        mkdir($directory, 0755);
+    if (strlen(pathinfo($_FILES['uploaded']['name'], PATHINFO_FILENAME)) == 0) {
+      $GLOBALS['status'] = array('error' => 'Fehler: Sie müssen eine Datei zum hochladen auswählen!');
     }
-    //moving the uploaded files to the upload-dir
-    $upload_folder = 'upload/'; //Das Upload-Verzeichnis
-    $filename = pathinfo($_FILES['uploaded']['name'], PATHINFO_FILENAME);
-    $extension = strtolower(pathinfo($_FILES['uploaded']['name'], PATHINFO_EXTENSION));
+    else {
+      //checking if dir upload exists, if not create it.
+      if (!file_exists($directory)) {
+          mkdir($directory, 0755);
+      }
+      //moving the uploaded files to the upload-dir
+      $upload_folder = 'upload/'; //Das Upload-Verzeichnis
+      $filename = pathinfo($_FILES['uploaded']['name'], PATHINFO_FILENAME);
+      $extension = strtolower(pathinfo($_FILES['uploaded']['name'], PATHINFO_EXTENSION));
 
 
-    //Überprüfung der Dateiendung
-    $allowed_extensions = array('rar', 'zip', 'gz');
-    if(!in_array($extension, $allowed_extensions)) {
-    	die("Ungültige Dateiendung. Nur .rar, .zip und .gz sind erlaubt.");
-    }
+      //Überprüfung der Dateiendung
+      $allowed_extensions = array('rar', 'zip', 'gz');
+      if(!in_array($extension, $allowed_extensions)) {
+      	die("<p><b><font color='red' face='arial'>Fehler: </font><font face='arial'>Ungueltige Dateiendung. Nur .rar, .zip und .gz sind erlaubt.</font></b></p>");
+      }
 
-    //Überprüfung der Dateigröße
-    $max_size = 10000*1024; //10 MB
-    if($_FILES['uploaded']['size'] > $max_size) {
-    	die("Bitte keine Dateien größer 10 MB hochladen.");
-    }
+      //Überprüfung der Dateigröße
+      $max_size = 10000*1024; //10 MB
+      if($_FILES['uploaded']['size'] > $max_size) {
+      	die("<p><b><font color='red' face='arial'>Fehler: </font> <font face='arial'>Bitte keine Dateien größer 10 MB hochladen.</font></b></p>");
+      }
 
-    //Pfad zum Upload
-    $new_path = $upload_folder.$filename.'.'.$extension;
+      //Pfad zum Upload
+      $new_path = $upload_folder.$filename.'.'.$extension;
 
-    //Neuer Dateiname falls die Datei bereits existiert
-    if(file_exists($new_path)) { //Falls Datei existiert, hänge eine Zahl an den Dateinamen
-    	$id = 1;
-    	do {
-    		$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
-    		$id++;
-    	} while(file_exists($new_path));
-    }
+      //Neuer Dateiname falls die Datei bereits existiert
+      if(file_exists($new_path)) { //Falls Datei existiert, hänge eine Zahl an den Dateinamen
+      	$id = 1;
+      	do {
+      		$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
+      		$id++;
+      	} while(file_exists($new_path));
+      }
 
-    //Alles okay, verschiebe Datei an neuen Pfad
-    move_uploaded_file($_FILES['uploaded']['tmp_name'], $new_path);
+      //Alles okay, verschiebe Datei an neuen Pfad
+      move_uploaded_file($_FILES['uploaded']['tmp_name'], $new_path);
+      $GLOBALS['status'] = array('success' => 'Datei erfolgreich hochgeladen.');
+  }
 }
 $timeend = microtime(TRUE);
 $time = $timeend - $timestart;
@@ -312,7 +318,7 @@ class Zipper {
     <div class="innerwrapper">
       <p class="status status--<?php echo strtoupper(key($GLOBALS['status'])); ?>">
         Status: <?php echo reset($GLOBALS['status']); ?><br/>
-        <span class="small">Zur Scriptausführung benötigte Zeit: <?php echo substr($timestring,0,4); ?> Sekunden</span>
+        <span class="small">Zur Scriptausführung benötigte Zeit: <?php echo substr($timestring,0,4); ?> Millisekunden</span>
       </p>
 
       <form action="" method="POST">
@@ -348,7 +354,7 @@ class Zipper {
           <h1>Archiv-Uploader</h1>
           <label for="uploader">Hochzuladende Datei:</label>
           <input type="file" name="uploaded" class="form-field" />
-          <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien.</b></p>
+          <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal 10MB.</b></p>
           <input type="submit" name="upload" class="submit" value="Hochladen"/>
         </fieldset>
       </form>
