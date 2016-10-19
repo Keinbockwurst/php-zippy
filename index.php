@@ -305,6 +305,7 @@ class Zipper {
   <link rel="stylesheet" href="resources/style.css">
   <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon">
   <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <div class="animated zoomIn wrapper">
