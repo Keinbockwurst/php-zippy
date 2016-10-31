@@ -9,7 +9,7 @@
  * @license GNU GPL v3
  * @version 0.1.4
  */
-define('VERSION', '0.1.4');
+define('VERSION', '0.1.5');
 $timestart = microtime(TRUE);
 $GLOBALS['status'] = array();
 $unzipper = new Unzipper;
@@ -311,7 +311,6 @@ class Zipper {
   }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -320,8 +319,14 @@ class Zipper {
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
   <link rel="stylesheet" href="resources/animate.css">
   <link rel="stylesheet" href="resources/style.css">
+  <script
+			  src="https://code.jquery.com/jquery-3.1.1.min.js"
+			  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+			  crossorigin="anonymous">
+  </script>
+  <script type="text/javascript" src="resources/app.js"></script>
   <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="resources/gfx/favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -333,42 +338,48 @@ class Zipper {
       </p>
 
       <form action="" method="POST">
-        <fieldset>
+        <fieldset class="field">
           <h1>Archiv Unzipper</h1>
-          <label for="zipfile">Wählen Sie ein .rar, .zip oder .gz-Archiv das sie entpacken wollen:</label>
-          <select name="zipfile" size="1" class="select">
-            <?php foreach ($unzipper->zipfiles as $zip) {
-              echo "<option>$zip</option>";
-            }
-            ?>
-          </select>
-            <?php if (count($zip) == 0) {
-                    echo "<b>Keine Dateien zum entpacken vorhanden!</b>";
-                  };
-            ?>
-          <label for="extpath">Pfad zum Entpacken (Optional):</label>
-          <input type="text" name="extpath" class="form-field" />
-          <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird das Archiv im selben Pfad entpackt.</p>
-          <input type="submit" name="dounzip" class="submit" value="Entpacken"/>
+            <div class="innercont">
+              <label for="zipfile">Wählen Sie ein .rar, .zip oder .gz-Archiv das sie entpacken wollen:</label>
+              <select name="zipfile" size="1" class="select">
+                <?php foreach ($unzipper->zipfiles as $zip) {
+                  echo "<option>$zip</option>";
+                }
+                ?>
+              </select>
+                <?php if (count($zip) == 0) {
+                        echo "<b>Keine Dateien zum entpacken vorhanden!</b>";
+                      };
+                ?>
+              <label for="extpath">Pfad zum Entpacken (Optional):</label>
+              <input type="text" name="extpath" class="form-field" />
+              <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird das Archiv im selben Pfad entpackt.</p>
+              <input type="submit" name="dounzip" class="submit" value="Entpacken"/>
+            </div>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="field">
           <h1>Archiv Zipper</h1>
-          <label for="zippath">Pfad den Sie zippen wollen (Optional):</label>
-          <input type="text" name="zippath" class="form-field" />
-          <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird der aktuelle Pfad verwendet.</p>
-          <input type="submit" name="dozip" class="submit" value="Packen"/>
-        </fieldset>
-      </form>
-      <form action ="" method="POST" enctype="multipart/form-data">
-        <fieldset>
-          <h1>Archiv-Uploader</h1>
-          <label for="uploader">Hochzuladende Datei:</label>
-          <input type="file" name="uploaded" class="form-field" />
-          <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal 10MB.</b></p>
-          <input type="submit" name="upload" class="submit" value="Hochladen"/>
-        </fieldset>
-      </form>
+            <div class="innercont">
+              <label for="zippath">Pfad den Sie zippen wollen (Optional):</label>
+              <input type="text" name="zippath" class="form-field" />
+              <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird der aktuelle Pfad verwendet.</p>
+              <input type="submit" name="dozip" class="submit" value="Packen"/>
+            </div>
+          </fieldset>
+          </form>
+          <form action ="" method="POST" enctype="multipart/form-data">
+            <fieldset class="field">
+              <h1>Archiv-Uploader</h1>
+              <div class="innercont">
+                <label for="uploader">Hochzuladende Datei:</label>
+                <input type="file" name="uploaded" class="form-field" />
+                <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal 10MB.</b></p>
+                <input type="submit" name="upload" class="submit" value="Hochladen"/>
+            </div>
+          </fieldset>
+        </form>
       <p class="version">Unzipper Version: <?php echo VERSION; ?></p>
     </div>
   </div>
