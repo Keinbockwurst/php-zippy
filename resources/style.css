@@ -12,6 +12,18 @@
       background-color: #EEE;
       margin: 10px 0 10px 0;
     }
+    h1 {
+      cursor: pointer;
+    }
+    h1:after {
+      background-image: url('gfx/more.svg');
+      background-size: 60px 60px;
+      height: 45px;
+      width: 60px;
+      content:"";
+      float: right;
+      margin-top: -16px;
+    }
     .wrapper {
       width: 960px;
       margin: auto;
@@ -25,6 +37,9 @@
     .select {
       padding: 5px;
       font-size: 110%;
+    }
+    .hider {
+      display: none;
     }
     .status {
       margin: 0;
@@ -75,7 +90,6 @@
       background-color: #2c6db2;
       cursor: pointer;
     }
-
     @media (max-width: 960px) {
       .wrapper {
         width: 100%;
