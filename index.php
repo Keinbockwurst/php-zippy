@@ -339,7 +339,7 @@ class Zipper {
 
       <form action="" method="POST">
         <fieldset class="field">
-          <h1>Archiv Unzipper</h1>
+          <h1>Archiv Unzipper</h1><div class="icon"></div>
             <div class="innercont">
               <label for="zipfile">Wählen Sie ein .rar, .zip oder .gz-Archiv das sie entpacken wollen:</label>
               <select name="zipfile" size="1" class="select">
@@ -360,7 +360,7 @@ class Zipper {
         </fieldset>
 
         <fieldset class="field">
-          <h1>Archiv Zipper</h1>
+          <h1>Archiv Zipper</h1><div class="icon"></div>
             <div class="innercont">
               <label for="zippath">Pfad den Sie zippen wollen (Optional):</label>
               <input type="text" name="zippath" class="form-field" />
@@ -371,7 +371,7 @@ class Zipper {
           </form>
           <form action ="" method="POST" enctype="multipart/form-data">
             <fieldset class="field">
-              <h1>Archiv-Uploader</h1>
+              <h1>Archiv-Uploader</h1><div class="icon"></div>
               <div class="innercont">
                 <label for="uploader">Hochzuladende Datei:</label>
                 <input type="file" name="uploaded" class="form-field" />
