@@ -3,6 +3,6 @@ $( document ).ready(function() {
     $(".innercont").addClass("hider");
   });
   $( ".field" ).click(function() {
-    $(this).find(".innercont").toggleClass("hider");
+    $(this).parent().find(".innercont").toggleClass("hider");
   });
 });
