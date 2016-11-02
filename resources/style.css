@@ -7,22 +7,35 @@
       display: block;
       margin-top: 20px;
     }
-    fieldset {
+    fieldset,
+    .fileplorer {
       border: 0;
       background-color: #EEE;
       margin: 10px 0 10px 0;
     }
+
+    .fileplorer {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-bottom: 12px;
+      padding-top: 5.6px;
+    }
     h1 {
       cursor: pointer;
+      display: inline-block;
     }
-    h1:after {
+    .icon {
+      cursor: pointer;
+      display: inline-block;
       background-image: url('gfx/more.svg');
       background-size: 60px 60px;
       height: 45px;
       width: 60px;
       content:"";
       float: right;
-      margin-top: -16px;
+    }
+    .icon-up {
+      background-image: url('gfx/less.svg');
     }
     .wrapper {
       width: 960px;
@@ -38,7 +51,7 @@
       padding: 5px;
       font-size: 110%;
     }
-    .hider {
+    .hide {
       display: none;
     }
     .status {
@@ -72,6 +85,7 @@
       padding: 8px;
       width: 280px;
     }
+
     .info {
       margin-top: 0;
       font-size: 80%;
@@ -90,6 +104,37 @@
       background-color: #2c6db2;
       cursor: pointer;
     }
+    div.galerie{
+	padding: 3px;
+	background-color:#ebebeb;
+	border:1px solid #CCC;
+	float:left;
+	margin:10px 10px 0  0;
+	font-family:Arial, Helvetica, sans-serif;
+}
+div.galerie:hover{
+	border:1px solid #333;
+}
+div.galerie span{
+	display:block;
+	text-align:center;
+	font-size:10px;
+}
+div.galerie a img{
+		border:none;
+}
+div.file {
+	padding:4px 4px 4px 30px;
+}
+div.file.even{
+	background-color: #ebebeb;
+}
+div.file a {
+	text-decoration:none;
+}
+div.file:hover {
+	background-color:#CCC;
+}
     @media (max-width: 960px) {
       .wrapper {
         width: 100%;
