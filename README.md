@@ -36,7 +36,7 @@ Veröffentlicht unter GNU/GPL v3
 
 
 ## Screenshot   
-![Screenshot of unzipper](https://boguth.org/uploads/pics/File_Unzipper___Zipper_01.png)
+![Screenshot of unzipper](https://boguth.org/uploads/pics/Zippy.png)
 
 
 ## Updates    
