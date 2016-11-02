@@ -13,7 +13,16 @@
       background-color: #EEE;
       margin: 10px 0 10px 0;
     }
-
+    #logo {
+      width: 100%;
+    }
+    #logo img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
     .fileplorer {
       padding-left: 10px;
       padding-right: 10px;
@@ -36,6 +45,7 @@
     }
     .icon-up {
       background-image: url('gfx/less.svg');
+      display: inline-block;
     }
     .wrapper {
       width: 960px;
@@ -139,5 +149,14 @@ div.file:hover {
       .wrapper {
         width: 100%;
         margin: auto;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      .innerwrapper {
+        padding: 0;
+      }
+      body {
+        margin: 0;
       }
     }
