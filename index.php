@@ -7,7 +7,7 @@
  *
  * @author  Andreas Tasch, at[tec], attec.at; Stefan Boguth, Boguth.org
  * @license GNU GPL v3
- * @version 0.2.0
+ * @version 0.2.1
  */
 define('VERSION', '0.2.1');
 $timestart = microtime(TRUE);
@@ -376,11 +376,13 @@ class Zipper {
         Status: <?php echo reset($GLOBALS['status']); ?><br/>
         <span class="small">Zur Scriptausführung benötigte Zeit: <?php echo substr($timestring,0,4); ?> Millisekunden</span>
       </p>
-
+      <div id="logo">
+        <img src="resources/gfx/logo.png" alt="Logo" />
+      </div>
       <form action="" method="POST">
         <fieldset class="field">
           <h1>Archiv Unzipper</h1><div class="icon"></div>
-            <div class="innercont hide">
+            <div class="innercont animated fadeIn hide">
               <label for="zipfile">Wählen Sie ein .rar, .zip oder .gz-Archiv das sie entpacken wollen:</label>
               <select name="zipfile" size="1" class="select">
                 <?php foreach ($unzipper->zipfiles as $zip) {
@@ -401,7 +403,7 @@ class Zipper {
 
         <fieldset class="field">
           <h1>Archiv Zipper</h1><div class="icon"></div>
-            <div class="innercont hide">
+            <div class="innercont animated fadeIn hide">
               <label for="zippath">Pfad den Sie zippen wollen (Optional):</label>
               <input type="text" name="zippath" class="form-field" />
               <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird der aktuelle Pfad verwendet.</p>
@@ -412,7 +414,7 @@ class Zipper {
           <form action ="" method="POST" enctype="multipart/form-data">
             <fieldset class="field">
               <h1>Archiv-Uploader</h1><div class="icon"></div>
-              <div class="innercont hide">
+              <div class="innercont animated fadeIn hide">
                 <label for="uploader">Hochzuladende Datei:</label>
                 <input type="file" name="uploaded" class="form-field" />
                 <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal 10MB.</b></p>
@@ -431,11 +433,11 @@ class Zipper {
           } ?>"></div>
             <div class="innercont<?php
             if($setexp == true) {
-              echo ("");
+              echo ('');
             }
             else {
               echo (' hide');
-            } ?>">
+            } ?> animated fadeIn">
               <label for="exppath">Anzuzeigender Pfad:</label>
               <input type="text" name="exppath" class="form-field" />
               <p class="info">Sie navigieren vom Verzeichnis des Scriptes aus, verwenden sie also z.B. ../ um eine Ebene höher zu springen.</p>
