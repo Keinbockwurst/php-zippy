@@ -34,6 +34,9 @@ if (isset($_POST['explorer'])) {
   if (!empty($_POST['exppath'])) {
     $GLOBALS['status'] = array('success' => 'Verzeichnis erfolgreich geöffnet.');
   }
+  else {
+    $GLOBALS['status'] = array('error' => 'Kein Pfad angegeben!');
+  }
 }
 $timeend = microtime(TRUE);
 $time = $timeend - $timestart;
@@ -89,6 +92,7 @@ class Uploader {
 }
 
 class Explorer {
+
   public function createExplorer($exppath) {
     $ordner = $exppath;
     $alledateien = scandir($ordner);
@@ -418,7 +422,13 @@ class Zipper {
         </form>
       <form action="" method="POST">
         <fieldset class="field">
-          <h1>Datei-Explorer (beta)</h1><div class="icon"></div>
+          <h1>Datei-Explorer (beta)</h1><div class="<?php
+          if($setexp == true) {
+            echo ('icon icon-up');
+          }
+          else {
+            echo ('icon');
+          } ?>"></div>
             <div class="innercont<?php
             if($setexp == true) {
               echo ("");
@@ -430,9 +440,12 @@ class Zipper {
               <input type="text" name="exppath" class="form-field" />
               <p class="info">Sie navigieren vom Verzeichnis des Scriptes aus, verwenden sie also z.B. ../ um eine Ebene höher zu springen.</p>
               <input type="submit" name="explorer" class="submit" value="Anzeigen"/>
-              <?php if ($setexp == true) {
+              <?php
+              if ($setexp == true && strlen($exppath) > 1) {
+                echo ("<p>Geöffneter Pfad: " . $exppath . " </p>");
                 Explorer::createExplorer($exppath);
-              } ?>
+              }
+               ?>
             </div>
           </fieldset>
         </form>
