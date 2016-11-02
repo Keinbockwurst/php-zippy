@@ -7,9 +7,9 @@
  *
  * @author  Andreas Tasch, at[tec], attec.at; Stefan Boguth, Boguth.org
  * @license GNU GPL v3
- * @version 0.1.4
+ * @version 0.2.0
  */
-define('VERSION', '0.1.5');
+define('VERSION', '0.2.0');
 $timestart = microtime(TRUE);
 $GLOBALS['status'] = array();
 $unzipper = new Unzipper;
@@ -27,15 +27,17 @@ if (isset($_POST['dozip'])) {
 }
 if (isset($_POST['upload'])) {
     Uploader::doUpload();
-
-
+}
+if (isset($_POST['explorer'])) {
+  $exppath = !empty($_POST['exppath']) ? strip_tags($_POST['exppath']) : '.';
+  $setexp = true;
+  if (!empty($_POST['exppath'])) {
+    $GLOBALS['status'] = array('success' => 'Verzeichnis erfolgreich geöffnet.');
+  }
 }
 $timeend = microtime(TRUE);
 $time = $timeend - $timestart;
 $timestring = (string)$time;
-/**
- * Class Unzipper
- */
 
 class Uploader {
 
@@ -86,7 +88,41 @@ class Uploader {
     }
 }
 
+class Explorer {
+  public function createExplorer($exppath) {
+    $ordner = $exppath;
+    $alledateien = scandir($ordner);
 
+    foreach ($alledateien as $datei) {
+      $dateiinfo = pathinfo($ordner."/".$datei);
+      $size = ceil(filesize($ordner."/".$datei)/1024);
+      if ($datei != "." && $datei != ".."  && $datei != "_notes" && $bildinfo['basename'] != "Thumbs.db") {
+
+          //Bildtypen sammeln
+          $bildtypen= array("jpg", "jpeg", "gif", "png");
+
+          //Dateien nach Typ prüfen, in dem Fall nach Endungen für Bilder filtern
+          if(in_array($dateiinfo['extension'],$bildtypen))
+            { echo (
+                "<div class='galerie'>
+                  <a href='" . $dateiinfo['dirname']."/".$dateiinfo['basename'] . "'>
+                  <img src='" . $dateiinfo['dirname']."/".$dateiinfo['basename'] . "' width='140' alt='Vorschau' /></a>
+                  <span>" . $dateiinfo['filename'] . "(" . $size . " kb)</span>
+                </div>"
+              );
+
+
+          // wenn keine Bildeindung dann normale Liste für Dateien ausgeben
+        } else { echo ("
+                <div class='file'>
+                  <a href='" . $dateiinfo['dirname'] . "/" .$dateiinfo['basename'] . "'>&raquo; " .$dateiinfo['filename'] . " </a> (" . $dateiinfo['extension'] . " | " . $size.  "kb)
+                </div>");
+                 }
+
+                    };
+                   };
+  }
+}
 
 class Unzipper {
   public $localdir = '.';
@@ -107,7 +143,7 @@ class Unzipper {
         $GLOBALS['status'] = array('info' => '.zip, .gz oder .rar Dateien gefunden, bereit zum entpacken.');
       }
       else {
-        $GLOBALS['status'] = array('info' => 'Keine .zip oder .gz oder rar Dateien gefunden. Nur Funktionen zum Packen von Archiven und Dateiupload möglich.');
+        $GLOBALS['status'] = array('info' => 'Keine .zip oder .gz oder rar Dateien gefunden.');
       }
     }
   }
@@ -340,7 +376,7 @@ class Zipper {
       <form action="" method="POST">
         <fieldset class="field">
           <h1>Archiv Unzipper</h1><div class="icon"></div>
-            <div class="innercont">
+            <div class="innercont hide">
               <label for="zipfile">Wählen Sie ein .rar, .zip oder .gz-Archiv das sie entpacken wollen:</label>
               <select name="zipfile" size="1" class="select">
                 <?php foreach ($unzipper->zipfiles as $zip) {
@@ -361,7 +397,7 @@ class Zipper {
 
         <fieldset class="field">
           <h1>Archiv Zipper</h1><div class="icon"></div>
-            <div class="innercont">
+            <div class="innercont hide">
               <label for="zippath">Pfad den Sie zippen wollen (Optional):</label>
               <input type="text" name="zippath" class="form-field" />
               <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird der aktuelle Pfad verwendet.</p>
@@ -372,7 +408,7 @@ class Zipper {
           <form action ="" method="POST" enctype="multipart/form-data">
             <fieldset class="field">
               <h1>Archiv-Uploader</h1><div class="icon"></div>
-              <div class="innercont">
+              <div class="innercont hide">
                 <label for="uploader">Hochzuladende Datei:</label>
                 <input type="file" name="uploaded" class="form-field" />
                 <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal 10MB.</b></p>
@@ -380,6 +416,27 @@ class Zipper {
             </div>
           </fieldset>
         </form>
+      <form action="" method="POST">
+        <fieldset class="field">
+          <h1>Datei-Explorer (beta)</h1><div class="icon"></div>
+            <div class="innercont<?php
+            if($setexp == true) {
+              echo ("");
+            }
+            else {
+              echo (' hide');
+            } ?>">
+              <label for="exppath">Anzuzeigender Pfad:</label>
+              <input type="text" name="exppath" class="form-field" />
+              <p class="info">Sie navigieren vom Verzeichnis des Scriptes aus, verwenden sie also z.B. ../ um eine Ebene höher zu springen.</p>
+              <input type="submit" name="explorer" class="submit" value="Anzeigen"/>
+              <?php if ($setexp == true) {
+                Explorer::createExplorer($exppath);
+              } ?>
+            </div>
+          </fieldset>
+        </form>
+
       <p class="version">Unzipper Version: <?php echo VERSION; ?></p>
     </div>
   </div>
