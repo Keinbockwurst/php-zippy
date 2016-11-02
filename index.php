@@ -7,9 +7,9 @@
  *
  * @author  Andreas Tasch, at[tec], attec.at; Stefan Boguth, Boguth.org
  * @license GNU GPL v3
- * @version 0.2.1
+ * @version 0.2.2
  */
-define('VERSION', '0.2.1');
+define('VERSION', '0.2.2');
 $timestart = microtime(TRUE);
 $GLOBALS['status'] = array();
 $unzipper = new Unzipper;
@@ -37,6 +37,8 @@ if (isset($_POST['explorer'])) {
   else {
     $GLOBALS['status'] = array('error' => 'Kein Pfad angegeben!');
   }
+} else {
+  $setexp = false;
 }
 $timeend = microtime(TRUE);
 $time = $timeend - $timestart;
