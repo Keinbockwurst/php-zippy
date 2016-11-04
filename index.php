@@ -63,8 +63,16 @@ switch ($postcont) {
 <html>
 <head>
   <title>Zippy</title>
+  <style>
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      line-height: 150%;
+      background-color: #cccccc;
+    }
+  </style>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="gray" />
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
   <link rel="stylesheet" href="resources/animate.css">
   <link rel="stylesheet" href="resources/style.css">
@@ -74,7 +82,6 @@ switch ($postcont) {
 			  crossorigin="anonymous">
   </script>
   <script type="text/javascript" src="resources/app.js"></script>
-  <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon">
   <link rel="icon" href="resources/gfx/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -124,9 +131,11 @@ switch ($postcont) {
               <h1>Archiv-Uploader</h1><div class="icon"></div>
               <div class="innercont animated fadeIn hide">
                 <label for="uploader">Hochzuladende Datei:</label>
-                <input type="file" name="uploaded" class="form-field" />
+                <input type="file" name="uploaded" class="form-field" id="fileinput" />
+                <output id="list"></output>
                 <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal 10MB.</b></p>
-                <input type="submit" name="upload" class="submit" value="Hochladen"/>
+                <input type="submit" name="upload" class="submit" value="Hochladen" id="uploadclick"/>
+
             </div>
           </fieldset>
         </form>
