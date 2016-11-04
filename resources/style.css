@@ -1,8 +1,3 @@
-    body {
-      font-family: 'Ubuntu', sans-serif;
-      line-height: 150%;
-      background-color: #cccccc;
-    }
     label {
       display: block;
       margin-top: 20px;
@@ -116,22 +111,26 @@
     }
     div.galerie{
 	padding: 3px;
-	background-color:#ebebeb;
-	border:1px solid #CCC;
-	float:left;
-	margin:10px 10px 0  0;
+	left: 0px;
 	font-family:Arial, Helvetica, sans-serif;
+  width: auto;
 }
 div.galerie:hover{
-	border:1px solid #333;
+	background-color: #CCC;
 }
 div.galerie span{
 	display:block;
 	text-align:center;
 	font-size:10px;
 }
+div.galerie a {
+  left: 0px;
+}
 div.galerie a img{
 		border:none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 div.file {
 	padding:4px 4px 4px 30px;
