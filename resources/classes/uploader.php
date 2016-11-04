@@ -34,16 +34,17 @@ class Uploader {
 
         if (strpos($mime, 'zip') !== false or strpos($mime, 'rar') !== false or strpos($mime, 'gzip' !== false)) {
           checkExt($extension);
+          //Überprüfung der Dateigröße
+          $max_size = 10000*1024; //10 MB
+          if($_FILES['uploaded']['size'] > $max_size) {
+            die("<p><b><font color='red' face='arial'>Fehler: </font> <font face='arial'>Bitte keine Dateien größer 10 MB hochladen.</font></b></p><input type='button' value='Verstanden' onClick='history.go(-1)'>");
+          }
         }
         else {
           die("<p><b><font color='red' face='arial'>Fehler: </font><font face='arial'>Ungueltige Datei! Nur .rar, .zip und .gz sind erlaubt.</font></b></p><input type='button' value='Verstanden' onClick='history.go(-1)'>");
         }
 
-        //Überprüfung der Dateigröße
-        $max_size = 10000*1024; //10 MB
-        if($_FILES['uploaded']['size'] > $max_size) {
-          die("<p><b><font color='red' face='arial'>Fehler: </font> <font face='arial'>Bitte keine Dateien größer 10 MB hochladen.</font></b></p><input type='button' value='Verstanden' onClick='history.go(-1)'>");
-        }
+
 
         //Pfad zum Upload
         $new_path = $upload_folder.$filename.'.'.$extension;
@@ -56,6 +57,7 @@ class Uploader {
             $id++;
           } while(file_exists($new_path));
         }
+        move_uploaded_file($_FILES['uploaded']['tmp_name'], $new_path);
         $GLOBALS['status'] = array('success' => 'Datei erfolgreich hochgeladen.');
       }
     }
