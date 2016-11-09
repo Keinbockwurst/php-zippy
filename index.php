@@ -3,30 +3,32 @@
  * The Unzipper extracts .zip or .rar archives and .gz files on webservers.
  * It's handy if you do not have shell access. E.g. if you want to upload a lot
  * of files (php framework or image collection) as an archive to save time.
- * As of version 0.1.0 it also supports creating archives.
  *
  * @author  Andreas Tasch, at[tec], attec.at; Stefan Boguth, Boguth.org
  * @license GNU GPL v3
- * @version 0.2.4
+ * @version 0.2.8
  */
-define('VERSION', '0.2.4');
-$GLOBALS['status'] = array();
+define('VERSION', '0.2.8');
+
 include 'resources/classes/unzip.php';
-$unzipper = new Unzipper;
+$unzipper = new Unzipper();
+session_start();
+$_SESSION['status'] = array();
+$_SESSION['status'] = array('info' => 'Zippy erfolgreich gestartet. Bereit für weitere Aufgaben.');
 
 if (isset($_POST['dounzip'])) {
-  $postcont = "unzip";
+    $postcont = 'unzip';
 }
 if (isset($_POST['dozip'])) {
-  $postcont = "zip";
+    $postcont = 'zip';
 }
 if (isset($_POST['upload'])) {
-  $postcont = "upload";
+    $postcont = 'upload';
 }
 if (isset($_POST['explorer'])) {
-  $postcont = "explorer";
+    $postcont = 'explorer';
 } else {
-  $setexp = false;
+    $setexp = false;
 }
 
 switch ($postcont) {
@@ -38,18 +40,15 @@ switch ($postcont) {
         include 'resources/classes/explorer.php';
         $exppath = !empty($_POST['exppath']) ? strip_tags($_POST['exppath']) : '.';
         $setexp = true;
-        if (!empty($_POST['exppath'])) {
-          $GLOBALS['status'] = array('success' => 'Verzeichnis erfolgreich geöffnet.');
-        }
-        else {
-          $GLOBALS['status'] = array('error' => 'Kein Pfad angegeben!');
+        if (empty($_POST['exppath'])) {
+            $_SESSION['status'] = array('error' => 'Kein Pfad angegeben!');
         }
         break;
     case zip:
         include 'resources/classes/zipper.php';
         $zippath = !empty($_POST['zippath']) ? strip_tags($_POST['zippath']) : '.';
         // Resulting zipfile e.g. zipper--2016-07-23--11-55.zip
-        $zipfile = 'zipper-' . date("Y-m-d--H-i") . '.zip';
+        $zipfile = 'zipper-'.date('Y-m-d--H-i').'.zip';
         Zipper::zipDir($zippath, $zipfile);
         break;
     case unzip:
@@ -87,8 +86,8 @@ switch ($postcont) {
 <body>
   <div class="animated zoomIn wrapper">
     <div class="innerwrapper">
-      <p class="status status--<?php echo strtoupper(key($GLOBALS['status'])); ?>">
-        <b>Status:</b> <?php echo reset($GLOBALS['status']); ?><br/>
+      <p class="status status--<?php echo strtoupper(key($_SESSION['status'])); ?>">
+        <b>Status:</b> <?php echo reset($_SESSION['status']); ?><br/>
       </p>
       <div id="logo">
         <img src="resources/gfx/logo.png" alt="Logo" />
@@ -100,13 +99,13 @@ switch ($postcont) {
               <label for="zipfile">Wählen Sie ein .rar, .zip oder .gz-Archiv das sie entpacken wollen:</label>
               <select name="zipfile" size="1" class="select">
                 <?php foreach ($unzipper->zipfiles as $zip) {
-                  echo "<option>$zip</option>";
-                }
+                        echo "<option>$zip</option>";
+                      }
                 ?>
               </select>
                 <?php if (count($unzipper->zipfiles) == 0) {
-                        echo "<b>Keine Dateien zum entpacken vorhanden!</b>";
-                      };
+                        echo '<b>Keine Dateien zum entpacken vorhanden!</b>';
+                      }
                 ?>
               <p class="info">Die zu entpackenden Archive müssen sich in folgendem Pfad befinden: <?php echo __DIR__ ?></p>
               <label for="extpath">Pfad zum Entpacken (Optional):</label>
@@ -133,27 +132,24 @@ switch ($postcont) {
                 <label for="uploader">Hochzuladende Datei:</label>
                 <input type="file" name="uploaded" class="form-field" id="fileinput" />
                 <output id="list"></output>
-                <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal 10MB.</b></p>
+                <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal <?php echo ("<span id='maxsize' value='" . ini_get('upload_max_filesize') . "'</span>" . ini_get('upload_max_filesize') . "B.") ?></b></p>
                 <input type="submit" name="upload" class="submit" value="Hochladen" id="uploadclick"/>
-
             </div>
           </fieldset>
         </form>
       <form action="" method="POST">
         <fieldset class="field">
-          <h1>Datei-Explorer (beta)</h1><div class="<?php
-          if($setexp == true) {
-            echo ('icon icon-up');
-          }
-          else {
-            echo ('icon');
+          <h1>Datei-Explorer (alpha)</h1><div class="<?php
+          if ($setexp == true) {
+              echo 'icon icon-up';
+          } else {
+              echo 'icon';
           } ?>"></div>
             <div class="innercont<?php
-            if($setexp == true) {
-              echo ('');
-            }
-            else {
-              echo (' hide');
+            if ($setexp == true) {
+                echo '';
+            } else {
+                echo ' hide';
             } ?> animated fadeIn">
               <label for="exppath">Anzuzeigender Pfad:</label>
               <input type="text" name="exppath" class="form-field" />
@@ -161,14 +157,13 @@ switch ($postcont) {
               <input type="submit" name="explorer" class="submit" value="Anzeigen"/>
               <?php
               if ($setexp == true && strlen($exppath) > 1) {
-                echo ("<p>Geöffneter Pfad: " . $exppath . " </p>");
-                Explorer::createExplorer($exppath);
+                  echo '<p>Geöffneter Pfad: '.$exppath.' </p>';
+                  Explorer::createExplorer($exppath);
               }
                ?>
             </div>
           </fieldset>
         </form>
-
       <p class="version">Unzipper Version: <?php echo VERSION; ?></p>
     </div>
   </div>
