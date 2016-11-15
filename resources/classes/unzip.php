@@ -113,7 +113,6 @@ class Unzipper
         return;
     }
       $filename = pathinfo($archive, PATHINFO_FILENAME);
-      echo $filename;
       $gzipped = gzopen($destination.'/'.$archive, 'rb');
       $file = fopen($destination.'/'.$filename, 'w');
       while ($string = gzread($gzipped, 4096)) {
