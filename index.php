@@ -33,6 +33,7 @@ if (isset($_POST['explorer'])) {
     $postcont = 'explorer';
 } else {
     $setexp = false;
+    $postcont = null;
 }
 
 
