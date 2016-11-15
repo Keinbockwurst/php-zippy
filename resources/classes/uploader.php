@@ -3,7 +3,7 @@ class Uploader
 {
     public function doUpload()
     {
-        $directory = 'upload/';
+        $directory = 'files/';
         if (strlen(pathinfo($_FILES['uploaded']['name'], PATHINFO_FILENAME)) == 0) {
             $_SESSION['status'] = array('error' => 'Fehler: Sie müssen eine Datei zum hochladen auswählen!');
         } else {
@@ -17,7 +17,7 @@ class Uploader
                       mkdir($directory, 0755);
                   }
 
-                      $upload_folder = 'upload/'; //Das Upload-Verzeichnis
+                      $upload_folder = 'files/'; //Das Upload-Verzeichnis
                       $filename = pathinfo($_FILES['uploaded']['name'], PATHINFO_FILENAME);
                       $extension = strtolower(pathinfo($_FILES['uploaded']['name'], PATHINFO_EXTENSION));
                     //  $max_size = 10000 * 1024; //10 MB

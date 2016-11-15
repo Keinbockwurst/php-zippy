@@ -2,7 +2,7 @@
 
 class Unzipper
 {
-    public $localdir = '.';
+    public $localdir = 'files';
     public $zipfiles = array();
     public function __construct()
     {
@@ -85,10 +85,10 @@ class Unzipper
     }
       $zip = new ZipArchive();
     // Check if archive is readable.
-    if ($zip->open($archive) === true) {
+    if ($zip->open($destination.'/'.$archive) === true) {
         // Check if destination is writable
-      if (is_writeable($destination.'/')) {
-          $zip->extractTo($destination);
+      if (is_writeable($destination.'/'.$archive)) {
+          $zip->extractTo($destination.'/');
           $zip->close();
           $_SESSION['status'] = array('success' => 'Dateien erfolgreich entpackt!');
       } else {
@@ -113,15 +113,16 @@ class Unzipper
         return;
     }
       $filename = pathinfo($archive, PATHINFO_FILENAME);
-      $gzipped = gzopen($archive, 'rb');
-      $file = fopen($filename, 'w');
+      echo $filename;
+      $gzipped = gzopen($destination.'/'.$archive, 'rb');
+      $file = fopen($destination.'/'.$filename, 'w');
       while ($string = gzread($gzipped, 4096)) {
           fwrite($file, $string, strlen($string));
       }
       gzclose($gzipped);
       fclose($file);
     // Check if file was extracted.
-    if (file_exists($destination.'/'.$filename)) {
+    if (file_exists($destination.'/'.$archive)) {
         $_SESSION['status'] = array('success' => 'Datei erfolgreich entpackt.');
     } else {
         $_SESSION['status'] = array('error' => 'Fehler beim entpacken der Datei.');
@@ -144,10 +145,10 @@ class Unzipper
     // Check if archive is readable.
     if ($rar = RarArchive::open($archive)) {
         // Check if destination is writable
-      if (is_writeable($destination.'/')) {
+      if (is_writeable($destination.'/'.$archive)) {
           $entries = $rar->getEntries();
           foreach ($entries as $entry) {
-              $entry->extract($destination);
+              $entry->extract($destination.'/'.$archive);
           }
           $rar->close();
           $_SESSION['status'] = array('success' => 'Datei erfolreich entpackt.');
