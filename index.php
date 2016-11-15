@@ -6,9 +6,13 @@
  *
  * @author  Andreas Tasch, at[tec], attec.at; Stefan Boguth, Boguth.org
  * @license GNU GPL v3
- * @version 0.2.8
+ * @version 0.2.9
  */
-define('VERSION', '0.2.8');
+define('VERSION', '0.2.9');
+if (!file_exists('files/')) {
+    mkdir('files/', 0755);
+}
+
 
 include 'resources/classes/unzip.php';
 $unzipper = new Unzipper();
@@ -31,12 +35,13 @@ if (isset($_POST['explorer'])) {
     $setexp = false;
 }
 
+
 switch ($postcont) {
-    case upload:
+    case 'upload':
         include 'resources/classes/uploader.php';
         Uploader::doUpload();
         break;
-    case explorer:
+    case 'explorer':
         include 'resources/classes/explorer.php';
         $exppath = !empty($_POST['exppath']) ? strip_tags($_POST['exppath']) : '.';
         $setexp = true;
@@ -44,19 +49,21 @@ switch ($postcont) {
             $_SESSION['status'] = array('error' => 'Kein Pfad angegeben!');
         }
         break;
-    case zip:
+    case 'zip':
         include 'resources/classes/zipper.php';
         $zippath = !empty($_POST['zippath']) ? strip_tags($_POST['zippath']) : '.';
         // Resulting zipfile e.g. zipper--2016-07-23--11-55.zip
         $zipfile = 'zipper-'.date('Y-m-d--H-i').'.zip';
         Zipper::zipDir($zippath, $zipfile);
         break;
-    case unzip:
+    case 'unzip':
         $archive = isset($_POST['zipfile']) ? strip_tags($_POST['zipfile']) : '';
         $destination = isset($_POST['extpath']) ? strip_tags($_POST['extpath']) : '';
         $unzipper->prepareExtraction($archive, $destination);
         break;
 }
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -107,9 +114,9 @@ switch ($postcont) {
                         echo '<b>Keine Dateien zum entpacken vorhanden!</b>';
                       }
                 ?>
-              <p class="info">Die zu entpackenden Archive müssen sich in folgendem Pfad befinden: <?php echo __DIR__ ?></p>
+              <p class="info">Die zu entpackenden Archive müssen sich in folgendem Pfad befinden: <?php echo __DIR__ ?>/files/</p>
               <label for="extpath">Pfad zum Entpacken (Optional):</label>
-              <input type="text" name="extpath" class="form-field" />
+              <input type="text" name="extpath" class="form-field" placeholder="<?php echo __DIR__ ?>" />
               <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird das Archiv im selben Pfad entpackt.</p>
               <input type="submit" name="dounzip" class="submit" value="Entpacken"/>
             </div>
@@ -132,7 +139,7 @@ switch ($postcont) {
                 <label for="uploader">Hochzuladende Datei:</label>
                 <input type="file" name="uploaded" class="form-field" id="fileinput" />
                 <output id="list"></output>
-                <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad Upload verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal <?php echo ("<span id='maxsize' value='" . ini_get('upload_max_filesize') . "'</span>" . ini_get('upload_max_filesize') . "B.") ?></b></p>
+                <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad files verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal <?php echo ("<span id='maxsize' value='" . ini_get('upload_max_filesize') . "'</span>" . ini_get('upload_max_filesize') . "B.") ?></b></p>
                 <input type="submit" name="upload" class="submit" value="Hochladen" id="uploadclick"/>
             </div>
           </fieldset>
