@@ -26,7 +26,10 @@ PHP 5.3 oder höher
 * Packen klicken
 
 ### Archiv Uploader
-* Upload von .rar, .zip und .gz-Archiven in den Ordner Upload
+* Upload von .rar, .zip und .gz-Archiven in den Ordner files
+
+### Datei-Explorer (alpha)
+* Zu öffnenden Pfad in das Feld eingeben und das Formular abschicken
 
 ## Version
 Das Tool befindet sich noch in der Entwicklung, Nutzung auf eigene Gefahr!
