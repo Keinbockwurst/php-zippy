@@ -15,7 +15,7 @@ $(document).ready(function() {
     input = document.getElementById('fileinput');
     file = input.files[0];
     if (file.size > 1024 * 1024 * $('#maxsize').text().slice(0,-3)) {
-      alert("Die Datei ist größer als " + filesize + " MB!");
+      alert("File is bigger than " + filesize + " MB!");
       e.preventDefault();
     } else {
       //nuttin
