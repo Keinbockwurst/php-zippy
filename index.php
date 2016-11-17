@@ -21,6 +21,8 @@ $_SESSION['status'] = array();
 $_SESSION['status'] = array('info' => 'Zippy erfolgreich gestartet. Bereit für weitere Aufgaben.');
 $postcont = null;
 
+
+
 if (isset($_POST['dounzip'])) {
     $postcont = 'unzip';
 }
@@ -35,6 +37,11 @@ if (isset($_POST['explorer'])) {
 } else {
     $setexp = false;
 }
+if (isset($_POST['delete'])) {
+  $setexp = true;
+  foreach ($_POST['delete'] as $files)
+    unlink($files);
+}
 
 
 switch ($postcont) {
@@ -43,7 +50,7 @@ switch ($postcont) {
         Uploader::doUpload();
         break;
     case 'explorer':
-        $exppath = !empty($_POST['exppath']) ? strip_tags($_POST['exppath']) : '.';
+            $exppath = !empty($_POST['exppath']) ? strip_tags($_POST['exppath']) : '.';
         if (is_dir($exppath) == false) {
             $_SESSION['status'] = array('error' => 'Fehler: Verzeichnis nicht vorhanden oder nicht lesbar!');
             $setexp = false;
@@ -172,15 +179,16 @@ switch ($postcont) {
               <input type="text" name="exppath" class="form-field" placeholder="z.B. files" />
               <p class="info">Sie navigieren vom Verzeichnis des Scriptes aus, verwenden sie also z.B. ../ um eine Ebene höher zu springen.</p>
               <input type="submit" name="explorer" class="submit" value="Anzeigen"/>
-              <?php
-              if ($setexp == true && strlen($exppath) > 1 && $docreate = true) {
-                  echo '<p>Geöffneter Pfad: '.$exppath.' </p>';
-                  Explorer::createExplorer($exppath);
-              }
-               ?>
-            </div>
+          </form>
+          <?php
+          if ($setexp == true && strlen($exppath) > 1 && $docreate = true) {
+              echo '<p>Geöffneter Pfad: '.$exppath.' </p>';
+              Explorer::createExplorer($exppath);
+          }
+           ?>
+           </div>
           </fieldset>
-        </form>
+
       <p class="version">Unzipper Version: <?php echo VERSION; ?></p>
     </div>
   </div>
