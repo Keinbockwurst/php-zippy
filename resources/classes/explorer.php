@@ -18,7 +18,7 @@ class Explorer {
                       echo
                         "<div class='galerie'>
                           <a href='" .$dateiinfo['dirname'].'/'.$dateiinfo['basename']."'>
-                          <img src='" .$dateiinfo['dirname'].'/'.$dateiinfo['basename']."' width='140' alt='Vorschau' /></a>
+                          <img src='" .$dateiinfo['dirname'].'/'.$dateiinfo['basename']."' width='140' alt='Preview' /></a>
                           <span>" .$dateiinfo['filename'].'('.$size.' kb)</span>
                         </div>'
                       ;
@@ -33,7 +33,7 @@ class Explorer {
               }
             }
       } else {
-        echo "<p>-- Das Verzeichnis ist leer! --</p>";
+        echo "<p>-- Directory is empty! --</p>";
       }
     }
 }
