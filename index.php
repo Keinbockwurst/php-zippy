@@ -19,6 +19,7 @@ $unzipper = new Unzipper();
 session_start();
 $_SESSION['status'] = array();
 $_SESSION['status'] = array('info' => 'Zippy erfolgreich gestartet. Bereit für weitere Aufgaben.');
+$postcont = null;
 
 if (isset($_POST['dounzip'])) {
     $postcont = 'unzip';
