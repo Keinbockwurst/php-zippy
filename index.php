@@ -33,7 +33,6 @@ if (isset($_POST['explorer'])) {
     $postcont = 'explorer';
 } else {
     $setexp = false;
-    $postcont = null;
 }
 
 
@@ -54,7 +53,7 @@ switch ($postcont) {
         include 'resources/classes/zipper.php';
         $zippath = !empty($_POST['zippath']) ? strip_tags($_POST['zippath']) : '.';
         // Resulting zipfile e.g. zipper--2016-07-23--11-55.zip
-        $zipfile = 'zipper-'.date('Y-m-d--H-i').'.zip';
+        $zipfile = 'files/zipper-'.date('Y-m-d--H-i').'.zip';
         Zipper::zipDir($zippath, $zipfile);
         break;
     case 'unzip':
@@ -92,12 +91,12 @@ switch ($postcont) {
   <link rel="icon" href="resources/gfx/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <div class="animated zoomIn wrapper">
+  <div class="animated fadeIn wrapper">
     <div class="innerwrapper">
       <p class="status status--<?php echo strtoupper(key($_SESSION['status'])); ?>">
         <b>Status:</b> <?php echo reset($_SESSION['status']); ?><br/>
       </p>
-      <div id="logo">
+      <div id="logo" class="animated bounceIn">
         <img src="resources/gfx/logo.png" alt="Logo" />
       </div>
       <form action="" method="POST">
@@ -127,8 +126,8 @@ switch ($postcont) {
           <h1>Archiv Zipper</h1><div class="icon"></div>
             <div class="innercont animated fadeIn hide">
               <label for="zippath">Pfad den Sie zippen wollen (Optional):</label>
-              <input type="text" name="zippath" class="form-field" />
-              <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird der aktuelle Pfad verwendet.</p>
+              <input type="text" name="zippath" class="form-field" placeholder="z.B. files"/>
+              <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird der aktuelle Pfad verwendet. <br>Die Datei befindet sich nach dem erstellen im Pfad <?php echo __DIR__ ?>/files/</p>
               <input type="submit" name="dozip" class="submit" value="Packen"/>
             </div>
           </fieldset>
@@ -160,7 +159,7 @@ switch ($postcont) {
                 echo ' hide';
             } ?> animated fadeIn">
               <label for="exppath">Anzuzeigender Pfad:</label>
-              <input type="text" name="exppath" class="form-field" />
+              <input type="text" name="exppath" class="form-field" placeholder="z.B. files" />
               <p class="info">Sie navigieren vom Verzeichnis des Scriptes aus, verwenden sie also z.B. ../ um eine Ebene höher zu springen.</p>
               <input type="submit" name="explorer" class="submit" value="Anzeigen"/>
               <?php
