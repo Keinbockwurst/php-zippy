@@ -6,9 +6,9 @@
  *
  * @author  Andreas Tasch, at[tec], attec.at; Stefan Boguth, Boguth.org
  * @license GNU GPL v3
- * @version 0.2.9
+ * @version 0.3.0
  */
-define('VERSION', '0.2.9');
+define('VERSION', '0.3.0');
 if (!file_exists('files/')) {
     mkdir('files/', 0755);
 }
