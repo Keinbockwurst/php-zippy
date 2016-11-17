@@ -43,11 +43,20 @@ switch ($postcont) {
         Uploader::doUpload();
         break;
     case 'explorer':
-        include 'resources/classes/explorer.php';
         $exppath = !empty($_POST['exppath']) ? strip_tags($_POST['exppath']) : '.';
-        $setexp = true;
-        if (empty($_POST['exppath'])) {
-            $_SESSION['status'] = array('error' => 'Kein Pfad angegeben!');
+        if (is_dir($exppath) == false) {
+            $_SESSION['status'] = array('error' => 'Fehler: Verzeichnis nicht vorhanden oder nicht lesbar!');
+            $setexp = false;
+            $docreate = false;
+        } else {
+          include 'resources/classes/explorer.php';
+          $setexp = true;
+          $docreate = true;
+          if (empty($_POST['exppath'])) {
+            $_SESSION['status'] = array('error' => 'Fehler: Kein Pfad angegeben!');
+          } else {
+            $_SESSION['status'] = array('success' => 'Verzeichnis erfolgreich geöffnet!');
+          }
         }
         break;
     case 'zip':
@@ -164,7 +173,7 @@ switch ($postcont) {
               <p class="info">Sie navigieren vom Verzeichnis des Scriptes aus, verwenden sie also z.B. ../ um eine Ebene höher zu springen.</p>
               <input type="submit" name="explorer" class="submit" value="Anzeigen"/>
               <?php
-              if ($setexp == true && strlen($exppath) > 1) {
+              if ($setexp == true && strlen($exppath) > 1 && $docreate = true) {
                   echo '<p>Geöffneter Pfad: '.$exppath.' </p>';
                   Explorer::createExplorer($exppath);
               }
