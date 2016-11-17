@@ -1,6 +1,6 @@
 # Zippy
 
-Tool zum entpacken von Archiven, nützlich wenn kein Shell-Zugang zum Webspace vorhanden ist.
+Tool zum entpacken von Archiven, nützlich wenn kein Shell-Zugang zum Webspace vorhanden ist. Bestenfalls nur in gesichertem Webspace verwenden.
 
 * Neu in Version 0.1.0: Pfade des Webspace Packen
 * Neu in Version 0.1.4: Upload von .rar, .zip und .gz-Archiven
