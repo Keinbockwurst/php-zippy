@@ -18,7 +18,7 @@ include 'resources/classes/unzip.php';
 $unzipper = new Unzipper();
 session_start();
 $_SESSION['status'] = array();
-$_SESSION['status'] = array('info' => 'Zippy erfolgreich gestartet. Bereit für weitere Aufgaben.');
+$_SESSION['status'] = array('info' => 'Zippy initialized. Waiting for further instructions.');
 $postcont = null;
 
 if (isset($_POST['dounzip'])) {
@@ -45,7 +45,7 @@ switch ($postcont) {
     case 'explorer':
         $exppath = !empty($_POST['exppath']) ? strip_tags($_POST['exppath']) : '.';
         if (is_dir($exppath) == false) {
-            $_SESSION['status'] = array('error' => 'Fehler: Verzeichnis nicht vorhanden oder nicht lesbar!');
+            $_SESSION['status'] = array('error' => 'Fehler: Directory not found or not writeable!');
             $setexp = false;
             $docreate = false;
         } else {
@@ -53,9 +53,9 @@ switch ($postcont) {
           $setexp = true;
           $docreate = true;
           if (empty($_POST['exppath'])) {
-            $_SESSION['status'] = array('error' => 'Fehler: Kein Pfad angegeben!');
+            $_SESSION['status'] = array('error' => 'Error: No path entered!');
           } else {
-            $_SESSION['status'] = array('success' => 'Verzeichnis erfolgreich geöffnet!');
+            $_SESSION['status'] = array('success' => 'Directory opened successfully!');
           }
         }
         break;
@@ -111,9 +111,9 @@ switch ($postcont) {
       </div>
       <form action="" method="POST">
         <fieldset class="field">
-          <h1>Archiv Unzipper</h1><div class="icon"></div>
+          <h1>Archive Unzipper</h1><div class="icon"></div>
             <div class="innercont animated fadeIn hide">
-              <label for="zipfile">Wählen Sie ein .rar, .zip oder .gz-Archiv das sie entpacken wollen:</label>
+              <label for="zipfile">Choose the archive you want to decompress:</label>
               <select name="zipfile" size="1" class="select">
                 <?php foreach ($unzipper->zipfiles as $zip) {
                         echo "<option>$zip</option>";
@@ -121,42 +121,42 @@ switch ($postcont) {
                 ?>
               </select>
                 <?php if (count($unzipper->zipfiles) == 0) {
-                        echo '<b>Keine Dateien zum entpacken vorhanden!</b>';
+                        echo '<b>No files found!</b>';
                       }
                 ?>
-              <p class="info">Die zu entpackenden Archive müssen sich in folgendem Pfad befinden: <?php echo __DIR__ ?>/files/</p>
-              <label for="extpath">Pfad zum Entpacken (Optional):</label>
+              <p class="info">The archives you want to decompress need to be placed in the path: <?php echo __DIR__ ?>/files/</p>
+              <label for="extpath">Path to decompress to (Optional):</label>
               <input type="text" name="extpath" class="form-field" placeholder="<?php echo __DIR__ ?>" />
-              <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird das Archiv im selben Pfad entpackt.</p>
-              <input type="submit" name="dounzip" class="submit" value="Entpacken"/>
+              <p class="info">Enter the path without slashes (e.g. "myPath").<br> When you leave this field empty the root-directory of Zippy is used.</p>
+              <input type="submit" name="dounzip" class="submit" value="Decompress"/>
             </div>
         </fieldset>
 
         <fieldset class="field">
-          <h1>Archiv Zipper</h1><div class="icon"></div>
+          <h1>Archive Zipper</h1><div class="icon"></div>
             <div class="innercont animated fadeIn hide">
-              <label for="zippath">Pfad den Sie zippen wollen (Optional):</label>
+              <label for="zippath">Path to be compressed (Optional):</label>
               <input type="text" name="zippath" class="form-field" placeholder="z.B. files"/>
-              <p class="info">Den gewünschten Pfad ohne Slash am Anfang oder Ende eingeben (z.B. "meinPfad").<br> Wenn das Feld leergelassen wird dann wird der aktuelle Pfad verwendet. <br>Die Datei befindet sich nach dem erstellen im Pfad <?php echo __DIR__ ?>/files/</p>
-              <input type="submit" name="dozip" class="submit" value="Packen"/>
+              <p class="info">Enter the path without slashes (e.g. "myPath").<br> When you leave this field empty the root-directory of Zippy is used. <br>You'll find the file in <?php echo __DIR__ ?>/files/ after compression is done.</p>
+              <input type="submit" name="dozip" class="submit" value="Compress"/>
             </div>
           </fieldset>
           </form>
           <form action ="" method="POST" enctype="multipart/form-data">
             <fieldset class="field">
-              <h1>Archiv-Uploader</h1><div class="icon"></div>
+              <h1>Archive-Uploader</h1><div class="icon"></div>
               <div class="innercont animated fadeIn hide">
-                <label for="uploader">Hochzuladende Datei:</label>
+                <label for="uploader">File for Upload:</label>
                 <input type="file" name="uploaded" class="form-field" id="fileinput" />
                 <output id="list"></output>
-                <p class="info">Der Uploader benötigt Schreibrechte im Verzeichnis! Die Dateien werden in den Pfad files verschoben.<br> <b>Der Uploader akzeptiert nur .rar, .zip und .gz-Dateien mit maximal <?php echo ("<span id='maxsize' value='" . ini_get('upload_max_filesize') . "'</span>" . ini_get('upload_max_filesize') . "B.") ?></b></p>
-                <input type="submit" name="upload" class="submit" value="Hochladen" id="uploadclick"/>
+                <p class="info">The Uploader needs to be able to write inside ../files.<br> <b>Only .rar, .gz and .zip files with a maximum file size of <?php echo ("<span id='maxsize' value='" . ini_get('upload_max_filesize') . "'</span>" . ini_get('upload_max_filesize') . "B.") ?></b></p>
+                <input type="submit" name="upload" class="submit" value="Upload" id="uploadclick"/>
             </div>
           </fieldset>
         </form>
       <form action="" method="POST">
         <fieldset class="field">
-          <h1>Datei-Explorer (alpha)</h1><div class="<?php
+          <h1>File-Explorer (alpha)</h1><div class="<?php
           if ($setexp == true) {
               echo 'icon icon-up';
           } else {
@@ -168,9 +168,9 @@ switch ($postcont) {
             } else {
                 echo ' hide';
             } ?> animated fadeIn">
-              <label for="exppath">Anzuzeigender Pfad:</label>
+              <label for="exppath">Path:</label>
               <input type="text" name="exppath" class="form-field" placeholder="z.B. files" />
-              <p class="info">Sie navigieren vom Verzeichnis des Scriptes aus, verwenden sie also z.B. ../ um eine Ebene höher zu springen.</p>
+              <p class="info">You are navigating from the root of Zippy!</p>
               <input type="submit" name="explorer" class="submit" value="Anzeigen"/>
               <?php
               if ($setexp == true && strlen($exppath) > 1 && $docreate = true) {
