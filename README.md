@@ -5,6 +5,7 @@ Tool zum entpacken von Archiven, nützlich wenn kein Shell-Zugang zum Webspace v
 * Neu in Version 0.1.0: Pfade des Webspace Packen
 * Neu in Version 0.1.4: Upload von .rar, .zip und .gz-Archiven
 * Neu in Version 0.2.0: Datei-Explorer
+* Neu in Version 0.3.0: Löschen im Datei-Explorer
 
 
 ## Vorraussetzungen    
